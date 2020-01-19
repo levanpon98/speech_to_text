@@ -74,9 +74,9 @@ def _rnn_layer(inputs, rnn_cell, rnn_hidden_size, layer_id, is_batch_norm,
         inputs = batch_norm(inputs, training)
 
     # Construct forward/backward RNN cells.
-    fw_cell = rnn_cell(units=rnn_hidden_size, go_backwards=True, return_sequences=True,trainable=training,
+    fw_cell = rnn_cell(units=rnn_hidden_size, go_backwards=True, return_sequences=True,
                        name="rnn_fw_{}".format(layer_id))
-    bw_cell = rnn_cell(units=rnn_hidden_size, return_sequences=True, trainable=training,
+    bw_cell = rnn_cell(units=rnn_hidden_size, return_sequences=True,
                        name="rnn_bw_{}".format(layer_id))
 
     if is_bidirectional:
@@ -141,6 +141,6 @@ class DeepSpeech2(tf.keras.Model):
 
         # FC layer with batch norm.
         inputs = batch_norm(inputs, training)
-        logits = tf.keras.layers.Dense(units=self.num_classes, use_bias=self.use_bias, trainable=training)(inputs)
+        logits = tf.keras.layers.Dense(units=self.num_classes, use_bias=self.use_bias)(inputs)
 
         return logits
