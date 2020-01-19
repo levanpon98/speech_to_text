@@ -248,8 +248,8 @@ def main(args):
                                     args.sortagrad)
     num_classes = len(train_dataset.speech_labels)
 
-    mirrored_strategy = tf.distribute.MirroredStrategy()
-    config = tf.estimator.RunConfig(train_distribute=mirrored_strategy)
+    strategy = tf.distribute.OneDeviceStrategy(device="/gpu:0")
+    config = tf.estimator.RunConfig(train_distribute=strategy)
 
     estimator = tf.estimator.Estimator(
         model_fn=model_fn,
@@ -277,7 +277,7 @@ def main(args):
     total_training_cycle = (args.train_epochs // args.epochs_between_evals)
 
     for cycle_index in range(total_training_cycle):
-        tf.compat.v1.logging.info('starting a training cycle: %d/%d', cycle_index + 1, total_training_cycle)
+        print('starting a training cycle: %d/%d', cycle_index + 1, total_training_cycle)
 
         train_dataset.entries = fn.batch_wise_dataset_shuffle(
             train_dataset.entries, cycle_index, args.sortagrad,
@@ -289,7 +289,7 @@ def main(args):
             estimator, eval_dataset.speech_labels,
             eval_dataset.entries, input_fn_eval)
 
-        tf.compat.v1.logging.info("Iteration {}: WER = {:.2f}, CER = {:.2f}".format(
+        print("Iteration {}: WER = {:.2f}, CER = {:.2f}".format(
             cycle_index + 1, eval_results[_WER_KEY], eval_results[_CER_KEY]))
 
         if fn.past_stop_threshold(
