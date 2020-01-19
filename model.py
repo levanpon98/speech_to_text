@@ -88,7 +88,7 @@ def _rnn_layer(inputs, rnn_cell, rnn_hidden_size, layer_id, is_batch_norm,
     return rnn_outputs
 
 
-class DeepSpeech2(tf.keras.Model):
+class DeepSpeech2(object):
     """Define DeepSpeech2 model."""
 
     def __init__(self, num_rnn_layers, rnn_type, is_bidirectional,
@@ -111,7 +111,7 @@ class DeepSpeech2(tf.keras.Model):
         self.use_bias = use_bias
         super(DeepSpeech2, self).__init__(**kwargs)
 
-    def call(self, inputs, training=None, mask=None):
+    def __call__(self, inputs, training=None):
         # Two cnn layers.
         inputs = conv_bn_layer(
             inputs, padding=(20, 5), filters=_CONV_FILTERS, kernel_size=(41, 11),

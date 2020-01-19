@@ -169,7 +169,7 @@ def model_fn(features, labels, mode, params):
         loss,
         model.trainable_variables)[0]
     train_op = tf.group(minimize_op, *update_ops)
-    print(params)
+
     return tf.estimator.EstimatorSpec(
         mode=mode,
         loss=loss,
@@ -284,7 +284,7 @@ def main(args):
             args.batch_size)
 
         estimator.train(input_fn=input_fn_train)
-        print('Evaluate ... ')
+
         eval_results = evaluate_model(
             estimator, eval_dataset.speech_labels,
             eval_dataset.entries, input_fn_eval)
