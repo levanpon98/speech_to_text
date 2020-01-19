@@ -33,7 +33,7 @@ def input_fn(batch_size, deep_speech, repeat=1):
 
     def _gen_data():
         for audio_file, transcript in entries:
-            features = fn.preprocess_audio(data_path + 'audio/' + audio_file, audio_featurizer,
+            features = fn.preprocess_audio(data_path + 'audio/' + audio_file + '.wav', audio_featurizer,
                                            feature_normalize)
             labels = fn.compute_label_feature(transcript, text_featurizer.token_to_index)
 
