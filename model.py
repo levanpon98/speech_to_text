@@ -141,6 +141,6 @@ class DeepSpeech2(tf.keras.Model):
 
         # FC layer with batch norm.
         inputs = batch_norm(inputs, training)
-        logits = tf.keras.layers.Dense(units=self.num_classes, use_bias=self.use_bias)(inputs)
+        logits = tf.keras.layers.Dense(units=self.num_classes)(inputs)
 
         return logits
