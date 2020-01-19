@@ -164,12 +164,12 @@ def model_fn(features, labels, mode, params):
     # Get both the unconditional updates (the None part)
     # and the input-conditional updates (the features part).
     update_ops = model.get_updates_for(None) + model.get_updates_for(features)
-    # Compute the minimize_op.
+
     minimize_op = optimizer.get_updates(
         loss,
         model.trainable_variables)[0]
     train_op = tf.group(minimize_op, *update_ops)
-
+    print('# Compute the minimize_op.')
     return tf.estimator.EstimatorSpec(
         mode=mode,
         loss=loss,
@@ -277,14 +277,14 @@ def main(args):
     total_training_cycle = (args.train_epochs // args.epochs_between_evals)
 
     for cycle_index in range(total_training_cycle):
-        print('starting a training cycle: %d/%d', cycle_index + 1, total_training_cycle)
+        print('Starting a training cycle: %d/%d' % (cycle_index + 1, total_training_cycle))
 
         train_dataset.entries = fn.batch_wise_dataset_shuffle(
             train_dataset.entries, cycle_index, args.sortagrad,
             args.batch_size)
 
         estimator.train(input_fn=input_fn_train)
-
+        print('Evaluate ... ')
         eval_results = evaluate_model(
             estimator, eval_dataset.speech_labels,
             eval_dataset.entries, input_fn_eval)
