@@ -169,7 +169,7 @@ def model_fn(features, labels, mode, params):
         loss,
         model.trainable_variables)[0]
     train_op = tf.group(minimize_op, *update_ops)
-    print('# Compute the minimize_op.')
+    print(params)
     return tf.estimator.EstimatorSpec(
         mode=mode,
         loss=loss,
