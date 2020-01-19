@@ -145,12 +145,12 @@ def model_fn(features, labels, mode, params):
             mode=mode,
             predictions=predictions)
 
-    # In training mode.
+    print('In training mode.')
     logits = model(features, training=True)
     probs = tf.nn.softmax(logits)
     ctc_input_length = fn.compute_length_after_conv(
         tf.shape(features)[1], tf.shape(probs)[1], input_length)
-    # Compute CTC loss
+    print('# Compute CTC loss')
     loss = tf.reduce_mean(ctc_loss(label_length, ctc_input_length, labels, probs))
 
     optimizer = tf.keras.optimizers.Adam(learning_rate=learning_rate)
