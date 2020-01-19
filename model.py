@@ -138,9 +138,11 @@ class DeepSpeech2(tf.keras.Model):
             inputs = _rnn_layer(
                 inputs, rnn_cell, self.rnn_hidden_size, layer_counter + 1,
                 is_batch_norm, self.is_bidirectional, training)
-        print("feat_size: {}".format(inputs.get_shape().as_list()[2]))
+
         # FC layer with batch norm.
         inputs = batch_norm(inputs, training)
+        print("shape:")
+        print(inputs.get_shape())
         logits = tf.keras.layers.Dense(units=self.num_classes, use_bias=self.use_bias)(inputs)
 
         return logits
