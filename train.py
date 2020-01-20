@@ -25,6 +25,8 @@ _DEFAULT_EVAL_DIR = os.path.join(_BASE_DIR, "speech_to_text_vietnamese/test/")
 _WER_KEY = "WER"
 _CER_KEY = "CER"
 
+tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
+
 
 def ctc_loss(label_length, ctc_input_length, labels, logits):
     label_length = tf.cast(tf.squeeze(label_length), dtype=tf.int32)

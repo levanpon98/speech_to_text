@@ -23,7 +23,6 @@ class DeepSpeechDataset(object):
 
 
 def input_fn(batch_size, deep_speech, repeat=1):
-    print('starting a training cycle')
     entries = deep_speech.entries
     num_feature_bins = deep_speech.num_feature_bins
     audio_featurizer = deep_speech.audio
