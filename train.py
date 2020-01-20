@@ -1,5 +1,6 @@
 import argparse
 import os
+
 from absl import logging
 import tensorflow as tf
 from utils.config import AudioConfig, DatasetConfig
@@ -15,6 +16,7 @@ from official.utils.logs import logger
 from official.utils.misc import distribution_utils
 from official.utils.misc import model_helpers
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 _DEFAULT_META_CSV = os.path.join(_BASE_DIR, 'meta.csv')
 _DEFAULT_CHARACTERS_FILE = os.path.join(_BASE_DIR, 'characters.txt')
@@ -24,8 +26,6 @@ _DEFAULT_EVAL_DIR = os.path.join(_BASE_DIR, "speech_to_text_vietnamese/test/")
 # Evaluation metrics
 _WER_KEY = "WER"
 _CER_KEY = "CER"
-
-tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 
 def ctc_loss(label_length, ctc_input_length, labels, logits):
