@@ -344,6 +344,11 @@ def define_deep_speech_flags():
             "the desired wer_threshold is 0.23 which is the result achieved by "
             "MLPerf implementation."))
 
+    flags.DEFINE_integer(
+        name='num_gpus', default=-1,
+        help='num_gpus'
+    )
+
 
 def main(_):
     with logger.benchmark_context(flags_obj):
