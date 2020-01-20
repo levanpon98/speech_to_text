@@ -39,7 +39,12 @@ def ctc_loss(label_length, ctc_input_length, labels, logits):
     y_pred = tf.math.log(tf.transpose(logits, perm=[1, 0, 2]) + tf.keras.backend.epsilon())
     return tf.expand_dims(tf.compat.v1.nn.ctc_loss(labels=sparse_labels,
                                                    inputs=y_pred,
-                                                   sequence_length=ctc_input_length), axis=1)
+                                                   sequence_length=ctc_input_length,
+                                                   preprocess_collapse_repeated=False,
+                                                   ctc_merge_repeated=True,
+                                                   ignore_longer_outputs_than_inputs=True,
+                                                   time_major=True
+                                                   ), axis=1)
 
 
 def generate_dataset(data_dir):
