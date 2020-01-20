@@ -20,9 +20,10 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 _DEFAULT_META_CSV = os.path.join(_BASE_DIR, 'meta.csv')
 _DEFAULT_CHARACTERS_FILE = os.path.join(_BASE_DIR, 'characters.txt')
-_DEFAULT_MODEL_DIR = os.path.join(_BASE_DIR, 'discriminative_model')
+_DEFAULT_MODEL_DIR = os.path.join(_BASE_DIR, 'model')
 _DEFAULT_TRAIN_DIR = os.path.join(_BASE_DIR, "speech_to_text_vietnamese/train/")
 _DEFAULT_EVAL_DIR = os.path.join(_BASE_DIR, "speech_to_text_vietnamese/test/")
+_DEFAULT_SAVE_MODEL_DIR = os.path.join(_BASE_DIR, 'checkpoint')
 # Evaluation metrics
 _WER_KEY = "WER"
 _CER_KEY = "CER"
@@ -270,8 +271,8 @@ def define_deep_speech_flags():
     flags.adopt_module_key_flags(flags_core)
 
     flags_core.set_defaults(
-        model_dir="/tmp/deep_speech_model/",
-        export_dir="/tmp/deep_speech_saved_model/",
+        model_dir=_DEFAULT_MODEL_DIR,
+        export_dir=_DEFAULT_SAVE_MODEL_DIR,
         train_epochs=10,
         batch_size=128,
         hooks=[],
