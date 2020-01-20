@@ -111,7 +111,7 @@ class DeepSpeech2(object):
         self.use_bias = use_bias
         super(DeepSpeech2, self).__init__(**kwargs)
 
-    def call(self, inputs, training):
+    def __call__(self, inputs, training):
         # Two cnn layers.
         inputs = conv_bn_layer(
             inputs, padding=(20, 5), filters=_CONV_FILTERS, kernel_size=(41, 11),
@@ -138,7 +138,7 @@ class DeepSpeech2(object):
             inputs = _rnn_layer(
                 inputs, rnn_cell, self.rnn_hidden_size, layer_counter + 1,
                 is_batch_norm, self.is_bidirectional, training)
-        
+
         # FC layer with batch norm.
         inputs = batch_norm(inputs, training)
 
