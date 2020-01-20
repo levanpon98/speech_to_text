@@ -95,4 +95,6 @@ y
 ý
 ỵ
 z
+.
+,
 # end of vocabulary
