@@ -87,7 +87,7 @@ def evaluate_model(estimator, speech_labels, entries, input_fn_eval):
     probs = [pred["probabilities"] for pred in predictions]
 
     num_of_examples = len(probs)
-    targets = [entry[2] for entry in entries]  # The ground truth transcript
+    targets = [entry[1] for entry in entries]  # The ground truth transcript
 
     total_wer, total_cer = 0, 0
     greedy_decoder = decoder.DeepSpeechDecoder(speech_labels)
